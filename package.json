@@ -1,0 +1,23 @@
+{
+  "name": "clever-logger",
+  "version": "1.0.0",
+  "description": "a logger can record request and respose data,it also can custom log,support output to console or local file",
+  "main": "index.js",
+  "dependencies": {
+    "colors": "^1.3.2",
+    "on-finished": "^2.3.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">= 0.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "logger"
+  ],
+  "author": "peachestao",
+  "license": "ISC"
+}

@@ -1,6 +1,8 @@
 # clever-logger
 a logger for nodejs's connect,express web framework,it can record request and response pivotal data,it also can custom  log,support output to console or local file
 
+npm address: [clever-logger](https://www.npmjs.com/package/clever-logger)
+
 # Installation
 npm install clever-logger
 

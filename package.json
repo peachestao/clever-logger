@@ -1,6 +1,6 @@
 {
   "name": "clever-logger",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "a logger can record request and respose data,it also can custom log,support output to console or local file",
   "main": "index.js",
   "homepage": "https://github.com/peachestao/clever-logger",

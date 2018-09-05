@@ -11,21 +11,21 @@ colors.setTheme({
 
 var defaultOptions={
     dynamicLog:{
-            isConsole:false,
-            immediate:false,
-            successPath:'',
-            errorPath:'',
-            logFields:['url','method','statusCode','responseTime']
-        },
+        isConsole:false,
+        immediate:false,
+        successPath:'',
+        errorPath:'',
+        logFields:['url','method','statusCode','responseTime']
+    },
     staticLog:{
-            isConsole:false,
-            infoPath:'',
-            debugPath:'',
-            warnPath:'',
-            errorPath:'',
-        },
-        format:'yyyy-mm-dd',//'yyyy-mm-dd',yyyy-mm-dd hh',
-        organizationType:1, //1：logs/2018-08-31/success.log 2：logs/2018-08-31_success.log
+        isConsole:false,
+        infoPath:'',
+        debugPath:'',
+        warnPath:'',
+        errorPath:'',
+    },
+    format:'yyyy-mm-dd',//'yyyy-mm-dd',yyyy-mm-dd hh',
+    organizationType:1, //1：logs/2018-08-31/success.log 2：logs/2018-08-31_success.log
 }
 
 //格式化日期
@@ -172,7 +172,7 @@ function checkJson(text){
     if (/^[\],:{}\s]*$/.test(text.replace(/\\["\\\/bfnrtu]/g, '@').
     replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
     replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
-       return true;
+        return true;
     }else{
         return false;
     }
@@ -205,6 +205,9 @@ function writeLog(fileType,data,cb){
             case 'info':
                 console.log(data.info);
                 break;
+            case 'debug':
+                console.log(data.debug);
+                break;
             case 'warn':
                 console.log(data.warn);
                 break;
@@ -229,6 +232,11 @@ function writeLog(fileType,data,cb){
 
 logger.Info=function(data,cb) {
     writeLog.call(logger.options,'info',data,cb);
+
+}
+
+logger.Debug=function(data,cb) {
+    writeLog.call(logger.options,'debug',data,cb);
 
 }
 

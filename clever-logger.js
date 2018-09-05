@@ -12,7 +12,7 @@ colors.setTheme({
 var defaultOptions={
     dynamicLog:{
             isConsole:false,
-            immediate:true,
+            immediate:false,
             successPath:'',
             errorPath:'',
             logFields:['url','method','statusCode','responseTime']

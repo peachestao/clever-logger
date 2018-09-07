@@ -14,6 +14,7 @@ this function is necessary,before use this middleware,must first invoke it.this 
 var defaultOptions={
 
     level:'',//default:'all' ,optional values:'all','debug','info','warn','error','off'
+    //please take attention:dynamicLog normal log think it's log level is debug 
     //all:record all log
     //debug:record debug、info、warn、error log
     //info:record info、warn、error log
@@ -25,7 +26,7 @@ var defaultOptions={
             isConsole:false,//whether show on console, default false
             immediate:false,//whether wait for request finish show or immediate show,default false
             successPath:'',//custom success log path,default logs/currentDate/success.log
-            errorPath:'',//custom success log path,default logs/currentDate/error.log
+            errorPath:'',//custom success log path,default logs/currentDate/error-dynamic.log
             logFields:['url','method','statusCode','responseTime'] //custom request and response field,
             //default 'url','method','statusCode','responseTime'
         },

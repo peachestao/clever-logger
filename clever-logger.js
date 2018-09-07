@@ -74,7 +74,7 @@ function writeFile(fileType,data,callback){
             break;
         case 'error-dynamic':
             path=this.dynamicLog.errorPath;
-            defaultPath='error.log';
+            defaultPath='error-dynamic.log';
             break;
         case 'info':
             path=this.staticLog.infoPath;
@@ -154,15 +154,26 @@ function logger(options){
         var reqData = getDynamicLogContent.call(req, dynamicLog.logFields);
         if (dynamicLog.immediate)
         {
-            writeLog.call(logger.options,'success',reqData,function(err){
-                next(new Error(err));
-            });
+            if(level_digital[logger.options.level]<=level_digital['debug']) {
+                writeLog.call(logger.options, 'success', reqData, function (err) {
+                    next(new Error(err));
+                });
+            }
         }
         else {
             req.tempData=reqData;
         }
 
         onResponseWillFinish(res, function (err) {
+            if(err)
+            {
+                if(level_digital[logger.options.level]<=level_digital['error']) {
+                    writeLog.call(logger.options, 'error-dynamic', err, function (err) {
+                        next(new Error(err));
+                    });
+                }
+                return ;
+            }
             debugger;
             res.startTime = new Date().getTime();
             res.responseTime=(res.startTime - req.startTime).toString();
@@ -170,10 +181,11 @@ function logger(options){
             if (!dynamicLog.immediate) {
                 resData=req.tempData+resData;
             }
-
-            writeLog.call(logger.options,'success',resData,function(err){
-                next(new Error(err));
-            });
+            if(level_digital[logger.options.level]<=level_digital['debug']) {
+                writeLog.call(logger.options, 'success', resData, function (err) {
+                    next(new Error(err));
+                });
+            }
 
         })
         next();

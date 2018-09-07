@@ -9,23 +9,34 @@ colors.setTheme({
     error:'red'
 });
 
+//level text and level digital relation
+var level_digital={
+    all:0,
+    debug:1,
+    info:2,
+    warn:3,
+    error:4,
+    off:5
+};
+
 var defaultOptions={
+    level:'all', //optional values:'all','debug','info','warn','error','off'. default:all
     dynamicLog:{
-        isConsole:false,
-        immediate:false,
-        successPath:'',
-        errorPath:'',
-        logFields:['url','method','statusCode','responseTime']
-    },
+            isConsole:false,
+            immediate:false,
+            successPath:'',
+            errorPath:'',
+            logFields:['url','method','statusCode','responseTime']
+        },
     staticLog:{
-        isConsole:false,
-        infoPath:'',
-        debugPath:'',
-        warnPath:'',
-        errorPath:'',
-    },
-    format:'yyyy-mm-dd',//'yyyy-mm-dd',yyyy-mm-dd hh',
-    organizationType:1, //1：logs/2018-08-31/success.log 2：logs/2018-08-31_success.log
+            isConsole:false,
+            infoPath:'',
+            debugPath:'',
+            warnPath:'',
+            errorPath:'',
+        },
+        format:'yyyy-mm-dd',//'yyyy-mm-dd',yyyy-mm-dd hh',
+        organizationType:1, //1：logs/2018-08-31/success.log 2：logs/2018-08-31_success.log
 }
 
 //格式化日期
@@ -168,15 +179,6 @@ function logger(options){
         next();
     }
 }
-function checkJson(text){
-    if (/^[\],:{}\s]*$/.test(text.replace(/\\["\\\/bfnrtu]/g, '@').
-    replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
-    replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
-        return true;
-    }else{
-        return false;
-    }
-}
 
 logger.init=function(options) {
     if(arguments.length==0) {
@@ -230,22 +232,35 @@ function writeLog(fileType,data,cb){
     }
 }
 
-logger.Info=function(data,cb) {
-    writeLog.call(logger.options,'info',data,cb);
+logger.info=function(data,cb) {
+    debugger;
+    if(level_digital[logger.options.level]<=level_digital['info'])
+    {
+        writeLog.call(logger.options, 'info', data, cb);
+    }
 
 }
 
-logger.Debug=function(data,cb) {
-    writeLog.call(logger.options,'debug',data,cb);
+logger.debug=function(data,cb) {
+    if(level_digital[logger.options.level]<=level_digital['debug'])
+    {
+        writeLog.call(logger.options, 'debug', data, cb);
+    }
 
 }
 
-logger.Warn=function(data,cb) {
-    writeLog.call(logger.options,'warn',data,cb);
+logger.warn=function(data,cb) {
+    if(level_digital[logger.options.level]<=level_digital['warn'])
+    {
+        writeLog.call(logger.options, 'warn', data, cb);
+    }
 }
 
-logger.Error=function(data,cb) {
-    writeLog.call(logger.options,'error',data,cb);
+logger.error=function(data,cb) {
+    if(level_digital[logger.options.level]<=level_digital['error'])
+    {
+        writeLog.call(logger.options, 'error', data, cb);
+    }
 }
 
 module.exports=logger;

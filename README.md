@@ -1,8 +1,6 @@
 # clever-logger
 a logger for nodejs's connect,express web framework,it can record request and response pivotal data,it also can custom  log,support output to console or local file
 
-npm address: [clever-logger](https://www.npmjs.com/package/clever-logger)
-
 # Installation
 npm install clever-logger
 
@@ -15,13 +13,21 @@ this function is necessary,before use this middleware,must first invoke it.this 
 
 var defaultOptions={
 
+    level:'',//default:'all' ,optional values:'all','debug','info','warn','error','off'
+    //all:record all log
+    //debug:record debug、info、warn、error log
+    //info:record info、warn、error log
+    //warn:record warn、error log
+    //error:record  error log
+    //off:not record any log
     dynamicLog:{ //record request and response log setting
 
             isConsole:false,//whether show on console, default false
             immediate:false,//whether wait for request finish show or immediate show,default false
             successPath:'',//custom success log path,default logs/currentDate/success.log
             errorPath:'',//custom success log path,default logs/currentDate/error.log
-            logFields:['url','method','statusCode','responseTime'] //custom request and response field,default 'url','method','statusCode','responseTime'
+            logFields:['url','method','statusCode','responseTime'] //custom request and response field,
+            //default 'url','method','statusCode','responseTime'
         },
     staticLog:{ //custom log setting
     
@@ -32,7 +38,8 @@ var defaultOptions={
             errorPath:''//custom logger.Error function log path
         },
         format:'',//file or dir's name format,optional values:'yyyy-mm-dd' and 'yyyy-mm-dd hh'
-        organizationType:1, //log file organization type,optional values:1 and 2 such as 1：logs/2018-08-31/success.log 2：logs/2018-08-31_success.log
+        organizationType:1, //log file organization type,
+        //optional values:1 and 2 such as 1：logs/2018-08-31/success.log 2：logs/2018-08-31_success.log
 }
 
 logger.init(defaultOptions);
@@ -47,18 +54,18 @@ if you no set parameter,such as app.use(logger()), system will use default value
 you also use part field such as app.use(logger(':url :statusCode'))
 
 
-## logger.Info(data,function(err){});
+## logger.info(data,function(err){});
 if isConsole field value set true,the word color will be green
-## logger.Debug(data,function(err){});
+## logger.debug(data,function(err){});
 if isConsole field value set true,the word color will be blue
-## logger.Warn(data,function(err){});
+## logger.warn(data,function(err){});
 if isConsole field value set true,the word color will be yellow
-## logger.Error(data,function(err){});
+## logger.error(data,function(err){});
 if isConsole field value set true,the word color will be red
 
 # Usage
 ## Record Request and Response Log
-
+```
 var logger=require('clever-logger');
 var express=require('express');
 var app=express();
@@ -67,8 +74,9 @@ logger.init();
 
 app.use(logger(':url :method :statusCode :responseTime'));
 app.listen('3000');
-
+```
 ## Custom Log
+```
 var logger=require('clever-logger');
 var express=require('express');
 var app=express();
@@ -77,6 +85,7 @@ var app=express();
 logger.init(
 {
 
+    level:'error',//only record error log,you can set other level,such as:'all','debug','info','warn','off'
     dynamicLog:{
             isConsole:true,
         },
@@ -103,7 +112,7 @@ logger.Warn('this is a info message',function(err){
 logger.Error('this is a info message',function(err){
     
 });
-
+```
 # Dependent Packages 
 - [on-finished](https://www.npmjs.com/package/on-finished)
 - [colors](https://www.npmjs.com/package/colors)

@@ -98,19 +98,19 @@ logger.init(
         organizationType:2
 });
 
-logger.Info('this is a info message',function(err){
+logger.info('this is a info message',function(err){
     
 });
 
-logger.Debug('this is a info message',function(err){
+logger.debug('this is a info message',function(err){
     
 });
 
-logger.Warn('this is a info message',function(err){
+logger.warn('this is a info message',function(err){
     
 });
 
-logger.Error('this is a info message',function(err){
+logger.error('this is a info message',function(err){
     
 });
 ```
